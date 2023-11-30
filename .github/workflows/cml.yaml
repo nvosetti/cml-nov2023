@@ -2,6 +2,7 @@ name : CML
 on : [push]
 jobs :
   run :
+    permissions: write-all
     runs-on : ubuntu-latest
     container : docker://ghcr.io/iterative/cml:0-dvc2-base1
     steps :
@@ -13,18 +14,6 @@ jobs :
 
           pip install -r requirements.txt
           python train.py
-          cml comment create report.md
-          
+
           echo "## Model Metrics" > report.md
           cat metrics.txt >> report.md
-
-          echo "## Data viz" >> report.md
-          echo "![](./residuals.png)" >> report.md
-
-          echo "## Data viz" >> report.md
-
-          cml comment update feature_importance.png report.md
-
-          cml comment update residuals.png report.md
-
-          cml comment update report.md
